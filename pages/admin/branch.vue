@@ -1,3 +1,3 @@
 <template>
-  <div>Branch</div>
+  <div>branch</div>
 </template>

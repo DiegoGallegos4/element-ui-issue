@@ -49,7 +49,35 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    [
+      'nuxt-i18n',
+      {
+        locales: [
+          {
+            code: 'en',
+            iso: 'en-US',
+            file: 'en.js'
+          },
+          {
+            code: 'es',
+            iso: 'es-ES',
+            file: 'es.js'
+          },
+          {
+            code: 'pt',
+            iso: 'pt-BR',
+            file: 'pt.js'
+          }
+        ],
+        lazy: true,
+        langDir: 'i18n/',
+        defaultLocale: 'es',
+        vueI18n: {
+          fallbackLocale: 'es'
+        }
+      }
+    ]
   ],
   /*
   ** Auth module configuration
