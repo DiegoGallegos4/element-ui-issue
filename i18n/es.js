@@ -21,6 +21,7 @@ export default {
   logout: 'Salir',
   abbreviation: 'Abreviacion',
   new: 'Nueva',
+  new_m: 'Nuevo',
   edit: 'Editar',
   required: 'Requerido'
 }

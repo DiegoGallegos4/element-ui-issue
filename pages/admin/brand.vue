@@ -14,7 +14,7 @@
     <div class="form-wrapper">
       <el-form ref="form" class="form-elements" :rules="rules" :model="state.frm">
         <el-form-item label="Nombre" prop="name">
-          <el-input v-validate="'required'" :value="state.name" @input="update('name', $event)" />
+          <el-input v-validate="'required'" :value="state.frm.name" @input="update('name', $event)" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" :loading="state.loading" @click="onSubmit">

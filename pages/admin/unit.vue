@@ -14,10 +14,10 @@
     <div class="form-wrapper">
       <el-form ref="form" class="form-elements" :rules="rules" :model="state.frm">
         <el-form-item label="Nombre" prop="name">
-          <el-input :value="state.name" @input="update('name', $event)" />
+          <el-input :value="state.frm.name" @input="update('name', $event)" />
         </el-form-item>
         <el-form-item label="Abreviatura" prop="abbr">
-          <el-input :value="state.abbr" @input="update('abbr', $event)" />
+          <el-input :value="state.frm.abbr" @input="update('abbr', $event)" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" :loading="state.loading" @click="onSubmit">
@@ -48,7 +48,7 @@ export default {
   methods: {
     onSubmit() {
       this.$refs.form.validate(valid => {
-        if (valid) return this.$store.dispatch('iunit/submit')
+        if (valid) return this.$store.dispatch('unit/submit')
         return false
       })
     },

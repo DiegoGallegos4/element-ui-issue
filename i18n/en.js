@@ -20,6 +20,7 @@ export default {
   login: 'Login',
   logout: 'Logout',
   new: 'New',
+  new_m: 'New',
   edit: 'Edit',
   required: 'Required'
 }

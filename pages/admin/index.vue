@@ -23,17 +23,17 @@
 </template>
 <script>
 export default {
-  async asyncData({ app }) {
-    const units = await app.$axios.get('/units')
-    const categories = await app.$axios.get('/categories')
-    const supermarkets = await app.$axios.get('/supermarkets')
-    const brands = await app.$axios.get('/brands')
+  async asyncData({ app, store }) {
+    await store.dispatch('brand/fetch')
+    await store.dispatch('category/fetch')
+    await store.dispatch('supermarket/fetch')
+    await store.dispatch('unit/fetch')
 
     return {
-      units: units.data.result,
-      categories: categories.data.result,
-      supermarkets: supermarkets.data.result,
-      brands: brands.data.result
+      units: store.state.unit.collection,
+      categories: store.state.category.collection,
+      brands: store.state.brand.collection,
+      supermarkets: store.state.supermarket.collection
     }
   },
   data() {

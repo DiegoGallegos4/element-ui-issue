@@ -19,5 +19,7 @@ export default {
   search_products: 'Busca por produto',
   login: 'Entrar',
   logout: 'Sair',
-  required: 'Requerido'
+  required: 'Requerido',
+  new: 'Nova',
+  new_m: 'Novo'
 }
