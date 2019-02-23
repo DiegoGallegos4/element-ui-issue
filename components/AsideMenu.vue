@@ -8,21 +8,27 @@
       mode="vertical"
       :collapse-transition="true"
     >
-      <el-menu-item v-for="(item, index) in menu" :key="index" index="index">
-        <i :class="item.icon" />
-        <span slot="title">
-          {{ item.name }}
-        </span>
-      </el-menu-item>
+      <div v-for="(item, index) in menu" :key="index">
+        <hr v-if="item.separator">
+        <nuxt-link class="nuxt-link" :to="item.link" style="text-decoration: none">
+          <el-menu-item index="index">
+            <i :class="item.icon" />
+            <span slot="title">
+              {{ item.name }}
+            </span>
+          </el-menu-item>
+        </nuxt-link>
+      </div>
     </el-menu>
   </el-scrollbar>
 </template>
 
 <script>
 const menu = [
-  { name: 'Restaurantes', icon: 'el-icon-goods' },
-  { name: 'Tiendas', icon: 'el-icon-star-off' },
-  { name: 'Lista de Compras', icon: 'el-icon-tickets' }
+  { name: 'Restaurantes', icon: 'el-icon-goods', link: '/' },
+  { name: 'Tiendas', icon: 'el-icon-star-off', link: '/' },
+  { name: 'Lista de Compras', icon: 'el-icon-tickets', link: '/' },
+  { name: 'Admin', icon: 'el-icon-setting', link: '/admin', separator: true }
 ]
 
 export default {
@@ -60,5 +66,10 @@ export default {
 
 .el-menu-vertical {
   height: 100vh !important;
+}
+
+hr {
+  border-bottom: none;
+  border-top: 1px solid #e5edef;
 }
 </style>

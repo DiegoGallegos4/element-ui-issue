@@ -1,4 +1,4 @@
-const pkg = require('./package')
+const pkg = require('./package');
 
 
 module.exports = {
@@ -15,7 +15,11 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      }
     ]
   },
 
@@ -27,16 +31,14 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    'element-ui/lib/theme-chalk/index.css'
-  ],
+  css: ['element-ui/lib/theme-chalk/index.css'],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     '@/plugins/element-ui',
-    { src:'~plugins/auth.js', ssr: false },
+    { src: '~plugins/auth.js', ssr: false },
     '~plugins/axios.js'
   ],
 
@@ -56,9 +58,17 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: {url: 'auth/login', method: 'post', propertyName: 'token' },
+          login: {
+            url: 'auth/signin',
+            method: 'post',
+            propertyName: 'token'
+          },
           logout: false,
-          user: {url: 'auth/user', method: 'get', propertyName: false}
+          user: {
+            url: 'auth/user',
+            method: 'get',
+            propertyName: false
+          }
         },
         tokenRequired: true,
         tokenType: 'Bearer'
@@ -66,8 +76,8 @@ module.exports = {
       facebook: {
         client_id: '495551984268171',
         userinfo_endpoint: false,
-        scope: ['public_profile', 'email' ]
-      },
+        scope: ['public_profile', 'email']
+      }
     },
     redirect: {
       login: false,
@@ -95,11 +105,12 @@ module.exports = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/,
+          exclude: /(node_modules)/
         })
 
-        config.devtool = "#sourcemap"
+        config.devtool = '#sourcemap'
       }
-    }
+    },
+    maxChunkSize: 300000
   }
 }

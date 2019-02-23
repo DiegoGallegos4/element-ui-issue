@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="card-carousel-wrapper">
-      <div class="card-carousel--nav__left" @click="moveCarousel(-1)" :disabled="atHeadOfList" />
+      <div class="card-carousel--nav__left" :disabled="atHeadOfList" @click="moveCarousel(-1)" />
       <div class="card-carousel">
         <div class="card-carousel--overflow-container">
           <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-            <div class="card-carousel--card" v-for="(item, idx) in items" :key="idx"><img src="https://placehold.it/200x200" />
+            <div v-for="(item, idx) in items" :key="idx" class="card-carousel--card">
+              <img src="https://placehold.it/200x200">
               <div class="card-carousel--card--footer">
                 <p>{{ item.name }}</p>
                 <p>{{ item.tag }}</p>
@@ -14,10 +15,52 @@
           </div>
         </div>
       </div>
-      <div class="card-carousel--nav__right" @click="moveCarousel(1)" :disabled="atEndOfList" />
+      <div class="card-carousel--nav__right" :disabled="atEndOfList" @click="moveCarousel(1)" />
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      currentOffset: 0,
+      windowSize: 3,
+      paginationFactor: 250,
+      items: [
+        { name: 'Tycoon Thai', tag: 'Thai' },
+        { name: 'Ippudo', tag: 'Japanese' },
+        { name: 'Milano', tag: 'Pizza' },
+        { name: 'Tsing Tao', tag: 'Chinese' },
+        { name: 'Frances', tag: 'French' },
+        { name: 'Burma Superstar', tag: 'Burmese' },
+        { name: 'Salt and Straw', tag: 'Ice cream' }
+      ]
+    }
+  },
+  computed: {
+    atEndOfList() {
+      return (
+        this.currentOffset <=
+        this.paginationFactor * -1 * (this.items.length - this.windowSize)
+      )
+    },
+    atHeadOfList() {
+      return this.currentOffset === 0
+    }
+  },
+  methods: {
+    moveCarousel(direction) {
+      // Find a more elegant way to express the :style. consider using props to make it truly generic
+      if (direction === 1 && !this.atEndOfList) {
+        this.currentOffset -= this.paginationFactor
+      } else if (direction === -1 && !this.atHeadOfList) {
+        this.currentOffset += this.paginationFactor
+      }
+    }
+  }
+}
+</script>
 
 <style>
 .card-carousel-wrapper {
@@ -172,45 +215,3 @@ h1 {
   color: #42b883;
 }
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      currentOffset: 0,
-      windowSize: 3,
-      paginationFactor: 250,
-      items: [
-        { name: 'Tycoon Thai', tag: 'Thai' },
-        { name: 'Ippudo', tag: 'Japanese' },
-        { name: 'Milano', tag: 'Pizza' },
-        { name: 'Tsing Tao', tag: 'Chinese' },
-        { name: 'Frances', tag: 'French' },
-        { name: 'Burma Superstar', tag: 'Burmese' },
-        { name: 'Salt and Straw', tag: 'Ice cream' }
-      ]
-    }
-  },
-  computed: {
-    atEndOfList() {
-      return (
-        this.currentOffset <=
-        this.paginationFactor * -1 * (this.items.length - this.windowSize)
-      )
-    },
-    atHeadOfList() {
-      return this.currentOffset === 0
-    }
-  },
-  methods: {
-    moveCarousel(direction) {
-      // Find a more elegant way to express the :style. consider using props to make it truly generic
-      if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor
-      } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor
-      }
-    }
-  }
-}
-</script>

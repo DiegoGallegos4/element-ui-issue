@@ -1,8 +1,34 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+  <el-container>
+    <login-modal />
+    <el-header id="main-header">
+      <page-header />
+    </el-header>
+    <el-container>
+      <aside-menu />
+      <main-container>
+        <nuxt />
+      </main-container>
+    </el-container>
+  </el-container>
 </template>
+
+<script>
+import AsideMenu from '~/components/AsideMenu.vue'
+import MainContainer from '~/components/MainContainer.vue'
+import PageHeader from '~/components/PageHeader.vue'
+import LoginModal from '~/components/LoginModal.vue'
+
+export default {
+  components: {
+    AsideMenu,
+    MainContainer,
+    PageHeader,
+    LoginModal
+  }
+}
+</script>
+
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -50,5 +76,29 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.form-container h3 {
+  font-weight: 400;
+  color: #1f2f3d;
+}
+.form-wrapper {
+  border: 1px solid #ebebeb;
+  border-radius: 3px;
+  margin: 10px 0px;
+}
+
+.form-wrapper .form-elements {
+  padding: 24px;
+}
+
+.form-title {
+  margin: 10px 0px;
+}
+
+.nuxt-link,
+.nuxt-link:visited {
+  color: #1f2f3d;
+  text-decoration: none;
 }
 </style>

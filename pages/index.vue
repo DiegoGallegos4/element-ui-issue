@@ -1,32 +1,16 @@
 <template>
-  <el-container>
-    <login-modal />
-    <el-header id="main-header">
-      <page-header />
-    </el-header>
-    <el-container>
-      <aside-menu />
-      <main-container />
-    </el-container>
-  </el-container>
+  <product-scrollbar />
 </template>
 
 <script>
-import AsideMenu from '~/components/AsideMenu.vue'
-import MainContainer from '~/components/MainContainer.vue'
-import PageHeader from '~/components/PageHeader.vue'
-import LoginModal from '~/components/LoginModal.vue'
+import ProductScrollbar from '~/components/ProductScrollbar.vue'
 
 export default {
   components: {
-    AsideMenu,
-    MainContainer,
-    PageHeader,
-    LoginModal
+    ProductScrollbar
   }
 }
 </script>
-
 <style>
 /**:not(path):not(g) {
   color: hsla(210, 100%, 100%, 0.9) !important;
