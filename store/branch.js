@@ -3,6 +3,12 @@ import { errorResponse } from '~/common/utils.js'
 import { Notification } from 'element-ui'
 
 export const mutations = {
+  loading(state, loading) {
+    state.loading = loading
+  },
+  setForm(state, frm) {
+    state.frm = frm
+  },
   update(state, payload) {
     state.frm = {
       ...state.frm,
@@ -11,9 +17,6 @@ export const mutations = {
   },
   updateCollection(state, collection) {
     state.collection = collection
-  },
-  loading(state, loading) {
-    state.loading = loading
   }
 }
 
@@ -26,16 +29,29 @@ export const actions = {
       Notification.error(errorResponse('Branches', err.response))
     }
   },
+  async fetchRecord({ commit }, id) {
+    commit('loading', true)
+    try {
+      const resp = await this.$axios.get(`${routes.branches}/${id}`)
+      commit('setForm', resp.data.result)
+    } catch (err) {
+      Notification.error(errorResponse('Edit Branches', err.response))
+    }
+    commit('loading', false)
+  },
   async submit({ commit, state }) {
     commit('loading', true)
     try {
-      await this.$axios.post(routes.branches, state.frm)
-      commit('loading', false)
+      if (state.frm.id) {
+        await this.$axios.put(`${routes.branches}/${state.frm.id}`, state.frm)
+      } else {
+        await this.$axios.post(routes.branches, state.frm)
+      }
       this.$router.push('/admin')
     } catch (err) {
-      commit('loading', false)
       Notification.error(errorResponse('Branches', err.response))
     }
+    commit('loading', false)
 
     return Promise.resolve()
   }
@@ -44,12 +60,12 @@ export const actions = {
 export const state = () => ({
   collection: [],
   frm: {
-    supermarket: null,
+    supermarket: '',
     address: null,
     city: null,
     location: {
-      lat: null,
-      lng: null
+      type: 'Point',
+      coordinates: [15.520638660195933, -88.02657544612886]
     },
     phone_number: null,
     opening: null,

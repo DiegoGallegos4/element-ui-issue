@@ -22,6 +22,7 @@ export const actions = {
           password: state.frm.password
         }
       })
+      commit('toggleLogin', {}, { root: true })
       this.$router.push('/')
     } catch (err) {
       Notification.error({
@@ -38,6 +39,7 @@ export const actions = {
           password: state.frm.password
         }
       })
+      commit('toggleLogin', {}, { root: true })
       this.$router.push('/')
     } catch (err) {
       Notification.error({

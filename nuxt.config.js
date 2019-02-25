@@ -77,7 +77,8 @@ module.exports = {
           fallbackLocale: 'es'
         }
       }
-    ]
+    ],
+    'nuxt-leaflet'
   ],
   /*
   ** Auth module configuration
@@ -134,6 +135,7 @@ module.exports = {
   */
   axios: {
     baseURL: 'http://localhost:4000/api/v1'
+    // baseURL: 'https://api.kartzapp.com/api/v1'
   },
 
   /*

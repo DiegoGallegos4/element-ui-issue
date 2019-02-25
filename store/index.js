@@ -9,10 +9,10 @@ export const mutations = {
 
 export const getters = {
   isAuthenticated(state) {
-    return state.auth.loggedIn
+    return state.auth && state.auth.loggedIn
   },
   loggedInUser(state) {
-    return state.auth.user
+    return state.auth && state.auth.user
   }
 }
 
@@ -20,3 +20,5 @@ export const state = () => ({
   isCollapse: false,
   isLoginOpen: false
 })
+
+export const strict = false

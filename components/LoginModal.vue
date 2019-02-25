@@ -20,9 +20,9 @@
       </el-col> 
     </el-row> 
     <!-- Form: Login/Register -->
-    <el-button v-if="screen != 'loginOptions'" style="margin-right:1.2rem;font-size:1rem;" type="text" icon="el-icon-back" @click="chooseScreen('loginOptions')"/>
-    <el-row class="center-items" v-if="screen == 'loginEmail' || screen == 'register'">
-      <el-col span="18">
+    <el-button v-if="screen != 'loginOptions'" style="margin-right:1.2rem;font-size:1rem;" type="text" icon="el-icon-back" @click="chooseScreen('loginOptions')" />
+    <el-row v-if="screen == 'loginEmail' || screen == 'register'" class="center-items">
+      <el-col :span="18">
         <h4 class="text-center title">
           Ingresa con
         </h4>

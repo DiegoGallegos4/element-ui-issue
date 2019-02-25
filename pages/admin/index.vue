@@ -14,6 +14,16 @@
             </el-row>
             <el-table :data="$data[item.data]" border>
               <el-table-column v-for="column in item.columns" :key="column.name" :prop="column.name" :label="$t(column.label)" />
+              <el-table-column
+                fixed="right"
+                width="120"
+              >
+                <template slot-scope="scope">
+                  <el-button size="mini" type="text" @click="handleEdit(scope.row, item.link)">
+                    Edit
+                  </el-button>
+                </template>
+              </el-table-column>
             </el-table>
           </div>
         </el-tab-pane>
@@ -25,15 +35,17 @@
 export default {
   async asyncData({ app, store }) {
     await store.dispatch('brand/fetch')
+    await store.dispatch('branch/fetch')
     await store.dispatch('category/fetch')
     await store.dispatch('supermarket/fetch')
     await store.dispatch('unit/fetch')
 
     return {
-      units: store.state.unit.collection,
-      categories: store.state.category.collection,
       brands: store.state.brand.collection,
-      supermarkets: store.state.supermarket.collection
+      branches: store.state.branch.collection,
+      categories: store.state.category.collection,
+      supermarkets: store.state.supermarket.collection,
+      units: store.state.unit.collection
     }
   },
   data() {
@@ -67,14 +79,25 @@ export default {
           data: 'supermarkets',
           columns: [{ label: 'supermarket', name: 'name' }]
         },
-        { name: 'branches', link: '/admin/branch', data: 'units', columns: [] },
+        {
+          name: 'branches',
+          link: '/admin/branch',
+          data: 'branches',
+          columns: [
+            { label: 'supermarket', name: 'supermarket.name' },
+            { label: 'City', name: 'city' }
+          ]
+        },
         { name: 'products', link: '/admin/product', data: 'units', columns: [] }
       ],
       units: []
     }
   },
   methods: {
-    handleClick(tab, event) {}
+    handleClick(tab, event) {},
+    handleEdit(row, link) {
+      this.$router.push(`${link}/${row._id}`)
+    }
   }
 }
 </script>
