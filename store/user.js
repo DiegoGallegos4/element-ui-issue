@@ -1,3 +1,5 @@
+import { Notification } from 'element-ui'
+
 export const mutations = {
   updateUser(state, payload) {
     state.user = payload
@@ -11,13 +13,48 @@ export const mutations = {
 }
 
 export const actions = {
+  async register({ commit, state }) {
+    try {
+      await this.$axios.post('/auth/signup', state.frm)
+      await this.$auth.loginWith('local', {
+        data: {
+          email: state.frm.email,
+          password: state.frm.password
+        }
+      })
+      this.$router.push('/')
+    } catch (err) {
+      Notification.error({
+        title: 'Register',
+        message: err.message
+      })
+    }
+  },
   async login({ commit, state }) {
-    await this.$auth.loginWith('local', state.frm)
-    return Promise.resolve()
+    try {
+      await this.$auth.loginWith('local', {
+        data: {
+          email: state.frm.email,
+          password: state.frm.password
+        }
+      })
+      this.$router.push('/')
+    } catch (err) {
+      Notification.error({
+        title: 'Login',
+        message: err.message
+      })
+    }
   },
   async loginFacebook() {
-    await this.$auth.loginWith('facebook')
-    return Promise.resolve()
+    try {
+      await this.$auth.loginWith('facebook')
+    } catch (err) {
+      Notification.error({
+        title: 'Login',
+        message: err.message
+      })
+    }
   }
 }
 

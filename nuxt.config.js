@@ -101,6 +101,23 @@ module.exports = {
         tokenRequired: true,
         tokenType: 'Bearer'
       },
+      register: {
+        endpoints: {
+          login: {
+            url: 'auth/signup',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: false,
+          user: {
+            url: 'auth/user',
+            method: 'get',
+            propertyName: false
+          }
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer'
+      },
       facebook: {
         client_id: '495551984268171',
         userinfo_endpoint: false,
