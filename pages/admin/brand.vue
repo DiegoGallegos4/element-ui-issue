@@ -17,8 +17,25 @@
           <el-input v-validate="'required'" :value="state.frm.name" @input="update('name', $event)" />
         </el-form-item>
         <el-form-item>
+          <el-upload 
+            ref="upload" 
+            accept="image/*" 
+            action="/" 
+            list-type="picture" 
+            :on-success="handleImage" 
+            :limit="1"
+          >
+            <el-button size="small" type="primary">
+              Upload Logo
+            </el-button>
+            <div slot="tip" class="el-upload__tip">
+              jpg/png files with a size less than 500kb
+            </div>
+          </el-upload>
+        </el-form-item>
+        <el-form-item>
           <el-button type="primary" :loading="state.loading" @click="onSubmit">
-            Submit
+            {{ $t('submit') }}
           </el-button>
         </el-form-item>
       </el-form>
@@ -50,6 +67,12 @@ export default {
     },
     update(field, value) {
       this.$store.commit('brand/update', { field, value })
+    },
+    handleImage(response, file, fileList) {
+      this.$store.commit('brand/update', {
+        field: 'image',
+        value: file.raw
+      })
     }
   }
 }

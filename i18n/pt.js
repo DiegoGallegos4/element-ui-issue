@@ -21,5 +21,6 @@ export default {
   logout: 'Sair',
   required: 'Requerido',
   new: 'Nova',
-  new_m: 'Novo'
+  new_m: 'Novo',
+  submit: 'Enviar'
 }

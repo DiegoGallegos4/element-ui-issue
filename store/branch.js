@@ -20,25 +20,21 @@ export const mutations = {
 export const actions = {
   async fetch({ commit }) {
     try {
-      const resp = await this.$axios.get(routes.categories)
+      const resp = await this.$axios.get(routes.branches)
       commit('updateCollection', resp.data.result)
     } catch (err) {
-      Notification.error(errorResponse('Categories', err.response))
+      Notification.error(errorResponse('Branches', err.response))
     }
   },
   async submit({ commit, state }) {
-    const form = new FormData()
-    const headers = { 'Content-Type': 'multipart/form-data' }
-
-    Object.keys(state.frm).map(key => form.append(key, state.frm[key]))
     commit('loading', true)
     try {
-      await this.$axios.post(routes.categories, form, { headers })
+      await this.$axios.post(routes.branches, state.frm)
       commit('loading', false)
       this.$router.push('/admin')
     } catch (err) {
       commit('loading', false)
-      Notification.error(errorResponse('Categories', err.response))
+      Notification.error(errorResponse('Branches', err.response))
     }
 
     return Promise.resolve()
@@ -48,8 +44,16 @@ export const actions = {
 export const state = () => ({
   collection: [],
   frm: {
-    name: null,
-    image: null
+    supermarket: null,
+    address: null,
+    city: null,
+    location: {
+      lat: null,
+      lng: null
+    },
+    phone_number: null,
+    opening: null,
+    closing: null
   },
   loading: false
 })

@@ -23,5 +23,6 @@ export default {
   new: 'Nueva',
   new_m: 'Nuevo',
   edit: 'Editar',
-  required: 'Requerido'
+  required: 'Requerido',
+  submit: 'Guardar'
 }

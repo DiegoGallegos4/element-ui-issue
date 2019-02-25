@@ -22,5 +22,6 @@ export default {
   new: 'New',
   new_m: 'New',
   edit: 'Edit',
-  required: 'Required'
+  required: 'Required',
+  submit: 'Submit'
 }

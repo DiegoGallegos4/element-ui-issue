@@ -32,7 +32,6 @@ export const actions = {
 
     Object.keys(state.frm).map(key => form.append(key, state.frm[key]))
     commit('loading', true)
-
     try {
       await this.$axios.post(routes.supermarkets, form, { headers })
       commit('loading', false)

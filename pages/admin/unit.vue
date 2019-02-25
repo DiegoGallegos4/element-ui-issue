@@ -21,7 +21,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" :loading="state.loading" @click="onSubmit">
-            Submit
+            {{ $t('submit') }}
           </el-button>
         </el-form-item>
       </el-form>

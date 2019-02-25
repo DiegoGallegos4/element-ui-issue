@@ -27,9 +27,13 @@ export const actions = {
     }
   },
   async submit({ commit, state }) {
+    const form = new FormData()
+    const headers = { 'Content-Type': 'multipart/form-data' }
+
+    Object.keys(state.frm).map(key => form.append(key, state.frm[key]))
     commit('loading', true)
     try {
-      await this.$axios.post(routes.brands, state.frm)
+      await this.$axios.post(routes.brands, form, { headers })
       commit('loading', false)
       this.$router.push('/admin')
     } catch (err) {
@@ -44,7 +48,8 @@ export const actions = {
 export const state = () => ({
   collection: [],
   frm: {
-    name: null
+    name: null,
+    image: null
   },
   loading: false
 })
