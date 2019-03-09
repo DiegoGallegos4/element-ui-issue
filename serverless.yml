@@ -18,6 +18,7 @@ functions:
 plugins:
   - serverless-apigw-binary
   - serverless-domain-manager
+  - serverless-offline
 
 custom:
   apigwBinary:
@@ -30,3 +31,5 @@ custom:
     certificateName: 'www.kartzapp.com'
     createRoute53Record: true
     endpointType: 'regional'
+  serverless-offline:
+    port: 3001

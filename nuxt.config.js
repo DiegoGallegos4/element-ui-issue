@@ -6,7 +6,7 @@ const baseURL =
     : 'http://localhost:4000/api/v1'
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
 
   /*
    ** Headers of the page
@@ -199,5 +199,6 @@ module.exports = {
   },
   router: {
     base: '/'
-  }
+  },
+  dev: process.env.NODE_ENV === 'production' ? false : true
 }
