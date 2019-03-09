@@ -23,4 +23,10 @@ export default {
 #main-header {
   border-bottom: solid 1px #e6e6e6;
 }
+
+
+.nuxt-link.nuxt-link-exact-active.nuxt-link-active {
+  color: #409eff;
+}
+
 </style>

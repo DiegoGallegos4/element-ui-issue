@@ -1,0 +1,14 @@
+image: node:9-alpine
+
+stages: 
+  - deploy
+
+deploy:
+  stage: deploy
+  before_script:
+    - apk add --update python3 
+    - pip3 install awscli
+    - npm install -g serverless
+  script:
+    - serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
+    - yarn run deploy

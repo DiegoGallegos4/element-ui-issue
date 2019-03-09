@@ -10,14 +10,14 @@
     >
       <div v-for="(item, index) in menu" :key="index">
         <hr v-if="item.separator">
-        <nuxt-link class="nuxt-link" :to="item.link" style="text-decoration: none">
-          <el-menu-item index="index">
+        <el-menu-item index="index">
+          <nuxt-link class="nuxt-link" :to="item.link" style="text-decoration: none">
             <i :class="item.icon" />
             <span slot="title">
               {{ item.name }}
             </span>
-          </el-menu-item>
-        </nuxt-link>
+          </nuxt-link>
+        </el-menu-item>
       </div>
     </el-menu>
   </el-scrollbar>

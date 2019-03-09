@@ -5,19 +5,27 @@
         <el-input :value="frm.name" @input="update('name', $event)" />
       </el-form-item>
       <el-form-item label="Pais" prop="country">
-        <el-select :value="frm.country" style="display:block" @change="update('country', $event)">
-          <el-option v-for="iso2Code in Object.keys(countryCodes)" :key="iso2Code" :value="countryCodes[iso2Code]">
+        <el-select
+          :value="countryCodes[frm.country]"
+          style="display:block"
+          @change="update('country', $event)"
+        >
+          <el-option
+            v-for="iso2Code in Object.keys(countryCodes)"
+            :key="iso2Code"
+            :value="iso2Code"
+          >
             {{ countryCodes[iso2Code] }}
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-upload 
-          ref="upload" 
-          accept="image/*" 
-          action="/" 
-          list-type="picture" 
-          :on-success="handleImage" 
+        <el-upload
+          ref="upload"
+          accept="image/*"
+          action="/"
+          list-type="picture"
+          :on-success="handleImage"
           :limit="1"
         >
           <el-button size="small" type="primary">

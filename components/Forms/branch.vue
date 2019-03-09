@@ -101,11 +101,14 @@ export default {
     }
   },
   computed: {
-    latlng: function() {
-      return {
-        lat: this.frm.location.coordinates[0],
-        lng: this.frm.location.coordinates[1]
-      }
+    latlng: {
+      get() {
+        return {
+          lat: this.frm.location.coordinates[0],
+          lng: this.frm.location.coordinates[1]
+        }
+      },
+      set() {}
     }
   },
   methods: {

@@ -1,0 +1,32 @@
+service: platform
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: staging
+  region: us-east-1
+  environment: 
+    NODE_ENV: production
+
+functions:
+  nuxt:
+    handler: index.nuxt
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
+
+plugins:
+  - serverless-apigw-binary
+  - serverless-domain-manager
+
+custom:
+  apigwBinary:
+    types:
+      - '*/*'
+  customDomain:
+    domainName: web.kartzapp.com
+    stage: staging
+    basePath: ''
+    certificateName: 'www.kartzapp.com'
+    createRoute53Record: true
+    endpointType: 'regional'

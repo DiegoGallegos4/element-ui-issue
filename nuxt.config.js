@@ -5,8 +5,8 @@ module.exports = {
   mode: 'spa',
 
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: pkg.name,
     meta: [
@@ -24,27 +24,26 @@ module.exports = {
   },
 
   /*
-  ** Customize the progress-bar color
-  */
+   ** Customize the progress-bar color
+   */
   loading: { color: '#fff' },
 
   /*
-  ** Global CSS
-  */
-  css: ['element-ui/lib/theme-chalk/index.css'],
-
+   ** Global CSS
+   */
+  css: ['element-ui/lib/theme-chalk/index.css', 'swiper/dist/css/swiper.css'],
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: [
-    '@/plugins/element-ui',
     { src: '~plugins/auth.js', ssr: false },
-    '~plugins/axios.js'
+    '~plugins/axios.js',
+    { src: '~plugins/swiper.js', ssr: false }
   ],
 
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
@@ -78,11 +77,43 @@ module.exports = {
         }
       }
     ],
-    'nuxt-leaflet'
+    'nuxt-leaflet',
+    'nuxt-element-ui'
   ],
+  elementUI: {
+    components: [
+      'Button',
+      'MenuItem',
+      'Scrollbar',
+      'Row',
+      'Col',
+      'Form',
+      'FormItem',
+      'Main',
+      'Autocomplete',
+      'Dialog',
+      'Select',
+      'TimeSelect',
+      'Option',
+      'Input',
+      'InputNumber',
+      'Upload',
+      'Breadcrumb',
+      'BreadcrumbItem',
+      'Table',
+      'TableColumn',
+      'Header',
+      'Container',
+      'Tabs',
+      'TabPane',
+      'Menu',
+      'Icon'
+    ],
+    locale: 'en'
+  },
   /*
-  ** Auth module configuration
-  */
+   ** Auth module configuration
+   */
   auth: {
     strategies: {
       local: {
@@ -131,20 +162,20 @@ module.exports = {
     }
   },
   /*
-  ** Axios module configuration
-  */
+   ** Axios module configuration
+   */
   axios: {
     baseURL: 'http://localhost:4000/api/v1'
     // baseURL: 'https://api.kartzapp.com/api/v1'
   },
 
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     /*
-    ** You can extend webpack config here
-    */
+     ** You can extend webpack config here
+     */
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
@@ -159,5 +190,12 @@ module.exports = {
       }
     },
     maxChunkSize: 300000
+  },
+  srcDir: './',
+  performance: {
+    gzip: false
+  },
+  router: {
+    base: '/'
   }
 }

@@ -37,6 +37,7 @@ export default {
     await store.dispatch('brand/fetch')
     await store.dispatch('branch/fetch')
     await store.dispatch('category/fetch')
+    await store.dispatch('product/fetch')
     await store.dispatch('supermarket/fetch')
     await store.dispatch('unit/fetch')
 
@@ -44,6 +45,7 @@ export default {
       brands: store.state.brand.collection,
       branches: store.state.branch.collection,
       categories: store.state.category.collection,
+      products: store.state.product.collection,
       supermarkets: store.state.supermarket.collection,
       units: store.state.unit.collection
     }
@@ -88,7 +90,16 @@ export default {
             { label: 'City', name: 'city' }
           ]
         },
+
         { name: 'products', link: '/admin/product', data: 'units', columns: [] }
+
+        {
+          name: 'products',
+          link: '/admin/product',
+          data: 'products',
+          columns: [{ label: 'product', name: 'name' }]
+        }
+
       ],
       units: []
     }
