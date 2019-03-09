@@ -25,9 +25,6 @@ export default {
     FormBreadcrumb,
     BrandForm
   },
-  async fetch({ store, params }) {
-    await store.dispatch('brand/fetchRecord', params.id)
-  },
   data() {
     return {
       rules: {
@@ -39,6 +36,9 @@ export default {
     ...mapState({
       state: state => state.brand
     })
+  },
+  async fetch({ store, params }) {
+    await store.dispatch('brand/fetchRecord', params.id)
   },
   methods: {
     onSubmit() {

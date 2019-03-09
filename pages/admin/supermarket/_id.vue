@@ -25,9 +25,6 @@ export default {
     FormBreadcrumb,
     SupermarketForm
   },
-  async fetch({ store, params }) {
-    await store.dispatch('supermarket/fetchRecord', params.id)
-  },
   data() {
     return {
       rules: {
@@ -40,6 +37,9 @@ export default {
     ...mapState({
       state: state => state.supermarket
     })
+  },
+  async fetch({ store, params }) {
+    await store.dispatch('supermarket/fetchRecord', params.id)
   },
   methods: {
     onSubmit() {

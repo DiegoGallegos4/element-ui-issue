@@ -30,12 +30,6 @@ export default {
     FormBreadcrumb,
     ProductForm
   },
-  async fetch({ store }) {
-    await store.dispatch('brand/fetch')
-    await store.dispatch('category/fetch')
-    await store.dispatch('supermarket/fetch')
-    await store.dispatch('unit/fetch')
-  },
   data() {
     return {
       rules: {
@@ -53,6 +47,12 @@ export default {
     ...mapState({
       state: state => state.product
     })
+  },
+  async fetch({ store }) {
+    await store.dispatch('brand/fetch')
+    await store.dispatch('category/fetch')
+    await store.dispatch('supermarket/fetch')
+    await store.dispatch('unit/fetch')
   },
   methods: {
     ...mapActions({

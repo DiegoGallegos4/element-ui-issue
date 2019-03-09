@@ -29,18 +29,6 @@ export default {
     FormBreadcrumb,
     ProductForm
   },
-  async asyncData({ store, params }) {
-    await store.dispatch('product/fetchRecord', params.id)
-    await store.dispatch('brand/fetch')
-    await store.dispatch('category/fetch')
-    await store.dispatch('unit/fetch')
-
-    return {
-      brands: store.state.brand.collection,
-      categories: store.state.category.collection,
-      units: store.state.unit.collection
-    }
-  },
   data() {
     return {
       rules: {
@@ -52,6 +40,18 @@ export default {
     ...mapState({
       state: state => state.product
     })
+  },
+  async asyncData({ store, params }) {
+    await store.dispatch('product/fetchRecord', params.id)
+    await store.dispatch('brand/fetch')
+    await store.dispatch('category/fetch')
+    await store.dispatch('unit/fetch')
+
+    return {
+      brands: store.state.brand.collection,
+      categories: store.state.category.collection,
+      units: store.state.unit.collection
+    }
   },
   methods: {
     onSubmit() {

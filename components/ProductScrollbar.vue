@@ -3,7 +3,7 @@
   <div v-swiper:mySwiper="swiperOption">
     <div class="swiper-wrapper">
       <div v-for="(banner, idx) in banners" :key="idx" class="swiper-slide">
-        <img :src="banner" />
+        <img :src="banner">
       </div>
     </div>
     <div class="swiper-pagination swiper-pagination-bullets" />

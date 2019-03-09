@@ -26,11 +26,6 @@ export default {
     FormBreadcrumb,
     BranchForm
   },
-  async asyncData({ store, params }) {
-    await store.dispatch('branch/fetchRecord', params.id)
-    await store.dispatch('supermarket/fetch')
-    return { supermarkets: store.state.supermarket.collection }
-  },
   data() {
     return {
       rules: {
@@ -40,6 +35,11 @@ export default {
   },
   computed: {
     ...mapState({ state: state => state.branch })
+  },
+  async asyncData({ store, params }) {
+    await store.dispatch('branch/fetchRecord', params.id)
+    await store.dispatch('supermarket/fetch')
+    return { supermarkets: store.state.supermarket.collection }
   },
   beforeDestroy() {
     this.$store.commit('branch/setForm', {

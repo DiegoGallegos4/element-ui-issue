@@ -44,23 +44,6 @@
 </template>
 <script>
 export default {
-  async asyncData({ app, store }) {
-    await store.dispatch('brand/fetch')
-    await store.dispatch('branch/fetch')
-    await store.dispatch('category/fetch')
-    await store.dispatch('product/fetch')
-    await store.dispatch('supermarket/fetch')
-    await store.dispatch('unit/fetch')
-
-    return {
-      brands: store.state.brand.collection,
-      branches: store.state.branch.collection,
-      categories: store.state.category.collection,
-      products: store.state.product.collection,
-      supermarkets: store.state.supermarket.collection,
-      units: store.state.unit.collection
-    }
-  },
   data() {
     return {
       activeName: 'units',
@@ -115,6 +98,23 @@ export default {
         }
       ],
       units: []
+    }
+  },
+  async asyncData({ app, store }) {
+    await store.dispatch('brand/fetch')
+    await store.dispatch('branch/fetch')
+    await store.dispatch('category/fetch')
+    await store.dispatch('product/fetch')
+    await store.dispatch('supermarket/fetch')
+    await store.dispatch('unit/fetch')
+
+    return {
+      brands: store.state.brand.collection,
+      branches: store.state.branch.collection,
+      categories: store.state.category.collection,
+      products: store.state.product.collection,
+      supermarkets: store.state.supermarket.collection,
+      units: store.state.unit.collection
     }
   },
   methods: {

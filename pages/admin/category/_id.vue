@@ -26,9 +26,6 @@ export default {
     FormBreadcrumb,
     CategoryForm
   },
-  async fetch({ store, params }) {
-    await store.dispatch('category/fetchRecord', params.id)
-  },
   data() {
     return {
       rules: {
@@ -40,6 +37,9 @@ export default {
     ...mapState({
       state: state => state.category
     })
+  },
+  async fetch({ store, params }) {
+    await store.dispatch('category/fetchRecord', params.id)
   },
   methods: {
     onSubmit() {

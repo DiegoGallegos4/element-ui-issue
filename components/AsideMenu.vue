@@ -9,19 +9,20 @@
       :collapse-transition="true"
     >
       <div v-for="(item, index) in menu" :key="index">
-        <hr v-if="item.separator" />
-        <el-menu-item index="index">
-          <nuxt-link
-            class="nuxt-link"
-            :to="item.link"
-            style="text-decoration: none"
-          >
+        <hr v-if="item.separator">
+        <nuxt-link
+          class="nuxt-link"
+          :to="item.link"
+          style="text-decoration: none"
+          exact
+        >
+          <el-menu-item index="index">
             <i :class="item.icon" />
             <span slot="title">
               {{ item.name }}
             </span>
-          </nuxt-link>
-        </el-menu-item>
+          </el-menu-item>
+        </nuxt-link>
       </div>
     </el-menu>
   </el-scrollbar>

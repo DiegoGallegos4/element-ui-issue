@@ -1,5 +1,10 @@
 const pkg = require('./package')
 
+const baseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://api.kartzapp.com/api/v1'
+    : 'http://localhost:4000/api/v1'
+
 module.exports = {
   mode: 'spa',
 
@@ -30,7 +35,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ['swiper/dist/css/swiper.css'],
+  css: ['element-ui/lib/theme-chalk/index.css', 'swiper/dist/css/swiper.css'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -164,10 +169,8 @@ module.exports = {
    ** Axios module configuration
    */
   axios: {
-    baseURL: 'http://localhost:4000/api/v1'
-    // baseURL: 'https://api.kartzapp.com/api/v1'
+    baseURL
   },
-
   /*
    ** Build configuration
    */

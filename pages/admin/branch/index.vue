@@ -26,11 +26,6 @@ export default {
     FormBreadcrumb,
     BranchForm
   },
-  async asyncData({ app, store }) {
-    await store.dispatch('supermarket/fetch')
-
-    return { supermarkets: store.state.supermarket.collection }
-  },
   data() {
     return {
       rules: {
@@ -40,6 +35,11 @@ export default {
   },
   computed: {
     ...mapState({ state: state => state.branch })
+  },
+  async asyncData({ app, store }) {
+    await store.dispatch('supermarket/fetch')
+
+    return { supermarkets: store.state.supermarket.collection }
   },
   methods: {
     async handleMapClick(e) {

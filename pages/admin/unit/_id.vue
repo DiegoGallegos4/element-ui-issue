@@ -24,9 +24,6 @@ export default {
     FormBreadcrumb,
     UnitForm
   },
-  async fetch({ store, params }) {
-    await store.dispatch('unit/fetchRecord', params.id)
-  },
   data() {
     return {
       rules: {
@@ -39,6 +36,9 @@ export default {
     ...mapState({
       state: state => state.unit
     })
+  },
+  async fetch({ store, params }) {
+    await store.dispatch('unit/fetchRecord', params.id)
   },
   methods: {
     onSubmit() {
