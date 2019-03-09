@@ -30,7 +30,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ['element-ui/lib/theme-chalk/index.css', 'swiper/dist/css/swiper.css'],
+  css: ['swiper/dist/css/swiper.css'],
   /*
    ** Plugins to load before mounting the App
    */

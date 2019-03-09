@@ -2,7 +2,12 @@
   <div>
     <div class="tab-container">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane v-for="item in items" :key="item.name" :label="$t(item.name)" :name="item.name">
+        <el-tab-pane
+          v-for="item in items"
+          :key="item.name"
+          :label="$t(item.name)"
+          :name="item.name"
+        >
           <div :key="item.name">
             <el-row style="display:flex;margin: 5px 0px;">
               <span style="flex-grow:1" />
@@ -13,13 +18,19 @@
               </nuxt-link>
             </el-row>
             <el-table :data="$data[item.data]" border>
-              <el-table-column v-for="column in item.columns" :key="column.name" :prop="column.name" :label="$t(column.label)" />
               <el-table-column
-                fixed="right"
-                width="120"
-              >
+                v-for="column in item.columns"
+                :key="column.name"
+                :prop="column.name"
+                :label="$t(column.label)"
+              />
+              <el-table-column fixed="right" width="120">
                 <template slot-scope="scope">
-                  <el-button size="mini" type="text" @click="handleEdit(scope.row, item.link)">
+                  <el-button
+                    size="mini"
+                    type="text"
+                    @click="handleEdit(scope.row, item.link)"
+                  >
                     Edit
                   </el-button>
                 </template>
@@ -90,16 +101,18 @@ export default {
             { label: 'City', name: 'city' }
           ]
         },
-
-        { name: 'products', link: '/admin/product', data: 'units', columns: [] }
-
+        {
+          name: 'products',
+          link: '/admin/product',
+          data: 'units',
+          columns: []
+        },
         {
           name: 'products',
           link: '/admin/product',
           data: 'products',
           columns: [{ label: 'product', name: 'name' }]
         }
-
       ],
       units: []
     }

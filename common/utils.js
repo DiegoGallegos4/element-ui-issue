@@ -3,7 +3,6 @@ const errorResponse = (store, err) => ({
   message: err.data.message
 })
 
-
 const buildFormData = (formData, data, parentKey) => {
   if (
     data &&
@@ -25,4 +24,3 @@ const buildFormData = (formData, data, parentKey) => {
 }
 
 export { buildFormData, errorResponse }
-

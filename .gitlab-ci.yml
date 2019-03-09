@@ -10,5 +10,6 @@ deploy:
     - pip3 install awscli
     - npm install -g serverless
   script:
+    - yarn install
     - serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
     - yarn run deploy
