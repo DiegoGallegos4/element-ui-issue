@@ -49,10 +49,7 @@
     "jest": "^23.6.0",
     "nodemon": "^1.18.9",
     "prettier": "1.14.3",
-<<<<<<< HEAD
-=======
     "serverless-domain-manager": "^3.1.0",
->>>>>>> element ui nuxt integration
     "vue-jest": "^3.0.2"
   }
 }

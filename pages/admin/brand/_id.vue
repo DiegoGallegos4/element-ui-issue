@@ -4,7 +4,7 @@
     <h3 class="form-title">
       {{ $t('new') }} {{ $t('brand') }}
     </h3>
-    <brand-form 
+    <brand-form
       ref="brandForm"
       :frm="state.frm"
       :loading="state.loading"

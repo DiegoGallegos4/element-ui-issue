@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper" style="min-width: 200px;">
-    <el-menu 
+    <el-menu
       class="el-menu-vertical"
       :show-timeout="1000"
       default-active="2"
@@ -9,9 +9,13 @@
       :collapse-transition="true"
     >
       <div v-for="(item, index) in menu" :key="index">
-        <hr v-if="item.separator">
+        <hr v-if="item.separator" />
         <el-menu-item index="index">
-          <nuxt-link class="nuxt-link" :to="item.link" style="text-decoration: none">
+          <nuxt-link
+            class="nuxt-link"
+            :to="item.link"
+            style="text-decoration: none"
+          >
             <i :class="item.icon" />
             <span slot="title">
               {{ item.name }}
