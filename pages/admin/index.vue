@@ -87,12 +87,6 @@ export default {
         {
           name: 'products',
           link: '/admin/product',
-          data: 'units',
-          columns: []
-        },
-        {
-          name: 'products',
-          link: '/admin/product',
           data: 'products',
           columns: [{ label: 'product', name: 'name' }]
         }

@@ -111,7 +111,9 @@ module.exports = {
       'Tabs',
       'TabPane',
       'Menu',
-      'Icon'
+      'Icon',
+      'Notification',
+      'Loading'
     ],
     locale: 'en'
   },
@@ -162,7 +164,7 @@ module.exports = {
     },
     redirect: {
       login: false,
-      callback: 'http://localhost:3000/'
+      callback: '/'
     }
   },
   /*
@@ -200,5 +202,5 @@ module.exports = {
   router: {
     base: '/'
   },
-  dev: process.env.NODE_ENV === 'production' ? false : true
+  dev: process.env.NODE_ENV === 'dev'
 }
