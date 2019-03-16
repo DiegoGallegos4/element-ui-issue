@@ -2,14 +2,13 @@
   <collection-table
     name="product"
     link="/admin/product"
-    :collection="state.collection"
+    :collection="collection"
     :columns="columns"
   />
 </template>
 
 <script>
 import CollectionTable from '@/components/Pages/collection_table'
-import { mapState } from 'vuex'
 export default {
   components: {
     CollectionTable
@@ -19,13 +18,11 @@ export default {
       columns: [{ label: 'product', name: 'name' }]
     }
   },
-  computed: {
-    ...mapState({
-      state: state => state.product
-    })
-  },
-  async fetch({ store }) {
+  async asyncData({ store }) {
     await store.dispatch('product/fetch')
+    return {
+      collection: store.state.product.collection
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form-breadcrumb current-page="supermarkets" />
+    <form-breadcrumb current-page="supermarkets" :routes="routes" />
     <h3 class="form-title">
       {{ $t('new_m') }} {{ $t('supermarket') }}
     </h3>
@@ -32,7 +32,8 @@ export default {
         name: { required: true, message: this.$t('required') },
         country: { required: true, message: this.$t('required') }
       },
-      fileList: []
+      fileList: [],
+      routes: [{ path: '/admin/supermarket', name: 'list' }]
     }
   },
   computed: {

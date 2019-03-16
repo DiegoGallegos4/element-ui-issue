@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form-breadcrumb current-page="product" />
+    <form-breadcrumb current-page="product" :routes="routes" />
     <h3 class="form-title">
       {{ $t('new_m') }} {{ $t('product') }}
     </h3>
@@ -42,7 +42,8 @@ export default {
         supermarkets: this.$store.state.supermarket.collection,
         units: this.$store.state.unit.collection
       },
-      fileList: []
+      fileList: [],
+      routes: [{ path: '/admin/product', name: 'list' }]
     }
   },
   computed: {

@@ -24,5 +24,6 @@ export default {
   edit: 'Edit',
   required: 'Required',
   submit: 'Submit',
-  city: 'City'
+  city: 'City',
+  list: 'Lista'
 }

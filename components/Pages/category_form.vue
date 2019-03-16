@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form-breadcrumb current-page="categories" />
+    <form-breadcrumb current-page="categories" :routes="routes" />
     <h3 class="form-title">
       {{ state.frm.id ? $t('edit') : $t('new') }} {{ $t('category') }}
     </h3>
@@ -32,7 +32,8 @@ export default {
       rules: {
         name: { required: true, message: this.$t('required') }
       },
-      fileList: []
+      fileList: [],
+      routes: [{ path: '/admin/category', name: 'list' }]
     }
   },
   computed: {

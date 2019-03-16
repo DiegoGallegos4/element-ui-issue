@@ -17,7 +17,7 @@ export const getters = {
 }
 
 export const state = () => ({
-  isCollapse: false,
+  isCollapse: true,
   isLoginOpen: false
 })
 

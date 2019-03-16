@@ -23,5 +23,6 @@ export default {
   new: 'Nova',
   new_m: 'Novo',
   submit: 'Enviar',
-  city: 'Cidade'
+  city: 'Cidade',
+  list: 'Lista'
 }

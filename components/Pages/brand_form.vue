@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form-breadcrumb current-page="brands" />
+    <form-breadcrumb current-page="brands" :routes="routes" />
     <h3 class="form-title">
       {{ $t('new') }} {{ $t('brand') }}
     </h3>
@@ -31,7 +31,8 @@ export default {
       rules: {
         name: { required: true, message: this.$t('required') }
       },
-      fileList: []
+      fileList: [],
+      routes: [{ path: '/admin/brand', name: 'list' }]
     }
   },
   computed: {

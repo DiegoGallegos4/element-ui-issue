@@ -1,12 +1,11 @@
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper" style="min-width: 200px;">
+  <el-scrollbar class="sidebar-menu" wrap-class="scrollbar-wrapper">
     <el-menu
       class="el-menu-vertical"
       mode="vertical"
       :collapse="isCollapse"
-      :collapse-transition="false"
+      :collapse-transition="true"
       :default-active="$route.path"
-      :show-timeout="1000"
     >
       <sidebar-item v-for="(item, index) in menu" :key="index" :item="item" />
     </el-menu>
@@ -29,12 +28,12 @@ export default {
           type: 'submenu',
           separator: true,
           items: [
-            { name: 'Brands', link: '/admin/brand' },
-            { name: 'Branches', link: '/admin/branch' },
-            { name: 'Categories', link: '/admin/category' },
-            { name: 'Supermarkets', link: '/admin/supermarket' },
-            { name: 'Products', link: '/admin/product' },
-            { name: 'Units', link: '/admin/unit' }
+            { name: 'brands', link: '/admin/brand' },
+            { name: 'branches', link: '/admin/branch' },
+            { name: 'categories', link: '/admin/category' },
+            { name: 'supermarkets', link: '/admin/supermarket' },
+            { name: 'products', link: '/admin/product' },
+            { name: 'units', link: '/admin/unit' }
           ]
         }
       ]
@@ -49,10 +48,19 @@ export default {
 </script>
 
 <style>
+.sidebar-menu {
+  position: absolute;
+  z-index: 1000 !important;
+}
+
 .el-menu-vertical:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
   height: 100vh !important;
+}
+
+.el-menu-vertical.el-menu--collapse {
+  visibility: hidden;
 }
 
 .el-menu--collapse > .submenu-wrapper .el-submenu__icon-arrow,

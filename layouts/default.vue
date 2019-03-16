@@ -4,8 +4,8 @@
     <el-header id="main-header">
       <page-header />
     </el-header>
-    <el-container>
-      <sidebar />
+    <el-container id="app-container">
+      <sidebar :class="getClass()" />
       <main-container>
         <nuxt />
       </main-container>
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-// import AsideMenu from '~/components/AsideMenu.vue'
 import Sidebar from '~/components/Layout/Sidebar'
 import MainContainer from '~/components/MainContainer.vue'
 import PageHeader from '~/components/PageHeader.vue'
@@ -22,11 +21,15 @@ import LoginModal from '~/components/LoginModal.vue'
 
 export default {
   components: {
-    // AsideMenu,
     Sidebar,
     MainContainer,
     PageHeader,
     LoginModal
+  },
+  methods: {
+    getClass() {
+      return this.$store.state.isCollapse ? 'not-visible' : ''
+    }
   }
 }
 </script>
@@ -49,6 +52,15 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+#app-container {
+  background-color: #f7f7f7;
+}
+
+.not-visible {
+  width: 0px;
+  visibility: hidden;
 }
 
 .button--green {

@@ -5,3 +5,9 @@
     </el-scrollbar>
   </el-main>
 </template>
+
+<style>
+#main-container {
+  height: 100vh;
+}
+</style>

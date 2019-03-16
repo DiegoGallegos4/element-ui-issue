@@ -16,7 +16,7 @@
       </template>
       <app-link v-for="(subitem, subindex) in item.items" :to="subitem.link" :key="subindex">
         <el-menu-item index="subindex * 100">
-            <span> {{ subitem.name }} </span>
+            <span> {{ $t(subitem.name) }} </span>
         </el-menu-item>
       </app-link>
     </el-submenu>

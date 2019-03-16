@@ -1,7 +1,9 @@
 <template>
   <el-breadcrumb separator="/">
-    <el-breadcrumb-item :to="{ path: '/admin' }">
-      {{ $t('admin') }}
+    <el-breadcrumb-item v-for="(route, index) in routes" :key="index">
+      <nuxt-link :to="route.path" class="nuxt-link" exact>
+        {{ $t(route.name) }}
+      </nuxt-link>
     </el-breadcrumb-item>
     <el-breadcrumb-item>
       {{ $t(currentPage) }}
@@ -16,6 +18,10 @@ export default {
     currentPage: {
       type: String,
       default: ''
+    },
+    routes: {
+      type: Array,
+      default: () => []
     }
   }
 }

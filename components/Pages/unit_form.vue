@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form-breadcrumb current-page="units" />
+    <form-breadcrumb current-page="units" :routes="routes" />
     <h3 class="form-title">
       {{ $t('new') }} {{ $t('unit') }}
     </h3>
@@ -29,7 +29,8 @@ export default {
       rules: {
         name: { required: true, message: this.$t('required') },
         abbr: { required: true, message: this.$t('required') }
-      }
+      },
+      routes: [{ path: '/admin/unit', name: 'list' }]
     }
   },
   computed: {

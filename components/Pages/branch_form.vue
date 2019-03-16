@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form-breadcrumb current-page="branches" />
+    <form-breadcrumb current-page="branches" :routes="routes" />
     <h3 class="form-title">{{ $t('new') }} {{ $t('branch') }}</h3>
     <branch-form
       ref="branchForm"
@@ -29,7 +29,8 @@ export default {
     return {
       rules: {
         supermarket: { required: true, message: this.$t('required') }
-      }
+      },
+      routes: [{ path: '/admin/branch', name: 'list' }]
     }
   },
   computed: {
