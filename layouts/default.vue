@@ -5,7 +5,7 @@
       <page-header />
     </el-header>
     <el-container>
-      <aside-menu />
+      <sidebar />
       <main-container>
         <nuxt />
       </main-container>
@@ -14,14 +14,16 @@
 </template>
 
 <script>
-import AsideMenu from '~/components/AsideMenu.vue'
+// import AsideMenu from '~/components/AsideMenu.vue'
+import Sidebar from '~/components/Layout/Sidebar'
 import MainContainer from '~/components/MainContainer.vue'
 import PageHeader from '~/components/PageHeader.vue'
 import LoginModal from '~/components/LoginModal.vue'
 
 export default {
   components: {
-    AsideMenu,
+    // AsideMenu,
+    Sidebar,
     MainContainer,
     PageHeader,
     LoginModal

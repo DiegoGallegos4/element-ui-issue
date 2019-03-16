@@ -1,16 +1,16 @@
 <template>
   <div class="form-container">
-    <form-breadcrumb current-page="categories" />
+    <form-breadcrumb current-page="brands" />
     <h3 class="form-title">
-      {{ $t('new') }} {{ $t('category') }}
+      {{ $t('new') }} {{ $t('brand') }}
     </h3>
-
-    <category-form 
-      ref="categoryForm"
+    <brand-form 
+      ref="brandForm"
       :frm="state.frm"
       :loading="state.loading"
       :rules="rules"
       :handle-image="handleImage"
+      :file-list="fileList"
       :on-submit="onSubmit"
       :update="update"
     />
@@ -19,40 +19,42 @@
 
 <script>
 import FormBreadcrumb from '@/components/Forms/breadcrumb'
-import CategoryForm from '@/components/Forms/category'
+import BrandForm from '@/components/Forms/brand'
 import { mapState } from 'vuex'
 export default {
   components: {
     FormBreadcrumb,
-    CategoryForm
+    BrandForm
   },
   data() {
     return {
       rules: {
         name: { required: true, message: this.$t('required') }
-      }
+      },
+      fileList: []
     }
   },
   computed: {
     ...mapState({
-      state: state => state.category
+      state: state => state.brand
     })
   },
-  async fetch({ store, params }) {
-    await store.dispatch('category/fetchRecord', params.id)
+  beforeDestroy() {
+    this.$store.dispatch('brand/resetState')
   },
   methods: {
     onSubmit() {
-      this.$refs.categoryForm.validate(valid => {
-        if (valid) return this.$store.dispatch('category/submit')
+      this.$refs.brandForm.validate(valid => {
+        if (valid) return this.$store.dispatch('brand/submit')
         return false
       })
     },
     update(field, value) {
-      this.$store.commit('category/update', { field, value })
+      this.$store.commit('brand/update', { field, value })
     },
-    handleImage(response, file, fileList) {
-      this.$store.commit('category/update', {
+    handleImage(file, fileList) {
+      this.fileList = [file]
+      this.$store.commit('brand/update', {
         field: 'image',
         value: file.raw
       })

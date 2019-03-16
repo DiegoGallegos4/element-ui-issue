@@ -5,13 +5,16 @@
         <el-input :value="frm.name" @input="update('name', $event)" />
       </el-form-item>
       <el-form-item>
-        <el-upload 
-          ref="upload" 
-          accept="image/*" 
-          action="/" 
-          list-type="picture" 
-          :on-success="handleImage" 
-          :limit="1"
+        <el-upload
+          ref="upload"
+          accept="image/*"
+          action="/"
+          list-type="picture"
+          :on-change="handleImage"
+          :on-exceed="handleImage"
+          :multiple="false"
+          :file-list="fileList"
+          :auto-upload="false"
         >
           <el-button size="small" type="primary">
             Upload Logo
@@ -45,6 +48,10 @@ export default {
     rules: {
       type: Object,
       default: () => ({})
+    },
+    fileList: {
+      type: Array,
+      default: () => []
     },
     handleImage: {
       type: Function,

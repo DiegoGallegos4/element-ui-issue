@@ -23,5 +23,6 @@ export default {
   new_m: 'New',
   edit: 'Edit',
   required: 'Required',
-  submit: 'Submit'
+  submit: 'Submit',
+  city: 'City'
 }

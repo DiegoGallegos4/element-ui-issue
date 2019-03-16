@@ -1,35 +1,25 @@
 <template>
-  <div class="form-container">
-    <form-breadcrumb current-page="units" />
-    <h3 class="form-title">
-      {{ $t('new') }} {{ $t('unit') }}
-    </h3>
-    <unit-form 
-      ref="unitForm"
-      :frm="state.frm"
-      :loading="state.loading"
-      :rules="rules"
-      :on-submit="onSubmit"
-      :update="update"
-    /> 
-  </div>
+  <collection-table
+    name="unit"
+    link="/admin/unit"
+    :collection="state.collection"
+    :columns="columns"
+  />
 </template>
 
 <script>
-import FormBreadcrumb from '@/components/Forms/breadcrumb'
-import UnitForm from '@/components/Forms/unit'
+import CollectionTable from '@/components/Pages/collection_table'
 import { mapState } from 'vuex'
 export default {
   components: {
-    FormBreadcrumb,
-    UnitForm
+    CollectionTable
   },
   data() {
     return {
-      rules: {
-        name: { required: true, message: this.$t('required') },
-        abbr: { required: true, message: this.$t('required') }
-      }
+      columns: [
+        { label: 'unit', name: 'name' },
+        { label: 'abbreviation', name: 'abbr' }
+      ]
     }
   },
   computed: {
@@ -37,16 +27,8 @@ export default {
       state: state => state.unit
     })
   },
-  methods: {
-    onSubmit() {
-      this.$refs.unitForm.validate(valid => {
-        if (valid) return this.$store.dispatch('unit/submit')
-        return false
-      })
-    },
-    update(field, value) {
-      this.$store.commit('unit/update', { field, value })
-    }
+  async fetch({ store }) {
+    await store.dispatch('unit/fetch')
   }
 }
 </script>

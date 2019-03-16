@@ -25,8 +25,11 @@
           accept="image/*"
           action="/"
           list-type="picture"
-          :on-success="handleImage"
-          :limit="1"
+          :on-change="handleImage"
+          :on-exceed="handleImage"
+          :multiple="false"
+          :file-list="fileList"
+          :auto-upload="false"
         >
           <el-button size="small" type="primary">
             Upload Logo
@@ -61,6 +64,10 @@ export default {
     rules: {
       type: Object,
       default: () => ({})
+    },
+    fileList: {
+      type: Array,
+      default: () => []
     },
     handleImage: {
       type: Function,

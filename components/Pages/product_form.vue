@@ -2,20 +2,22 @@
   <div class="form-container">
     <form-breadcrumb current-page="product" />
     <h3 class="form-title">
-      {{ $t('new') }} {{ $t('product') }}
+      {{ $t('new_m') }} {{ $t('product') }}
     </h3>
 
     <product-form
       ref="productForm"
-      :brands="brands"
-      :categories="categories"
+      :add-price="addPrice"
+      :collections="collections"
       :frm="state.frm"
+      :frm-price="state.frmPrice"
       :loading="state.loading"
       :rules="rules"
+      :file-list="fileList"
       :handle-image="handleImage"
       :on-submit="onSubmit"
-      :units="units"
       :update="update"
+      :update-price="updatePrice"
     />
   </div>
 </template>
@@ -23,7 +25,7 @@
 <script>
 import FormBreadcrumb from '@/components/Forms/breadcrumb'
 import ProductForm from '@/components/Forms/product'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     FormBreadcrumb,
@@ -33,7 +35,14 @@ export default {
     return {
       rules: {
         name: { required: true, message: this.$t('required') }
-      }
+      },
+      collections: {
+        brands: this.$store.state.brand.collection,
+        categories: this.$store.state.category.collection,
+        supermarkets: this.$store.state.supermarket.collection,
+        units: this.$store.state.unit.collection
+      },
+      fileList: []
     }
   },
   computed: {
@@ -41,19 +50,13 @@ export default {
       state: state => state.product
     })
   },
-  async asyncData({ store, params }) {
-    await store.dispatch('product/fetchRecord', params.id)
-    await store.dispatch('brand/fetch')
-    await store.dispatch('category/fetch')
-    await store.dispatch('unit/fetch')
-
-    return {
-      brands: store.state.brand.collection,
-      categories: store.state.category.collection,
-      units: store.state.unit.collection
-    }
+  beforeDestroy() {
+    this.$store.dispatch('product/resetState')
   },
   methods: {
+    ...mapActions({
+      addPrice: 'product/addPrice'
+    }),
     onSubmit() {
       this.$refs.productForm.validate(valid => {
         if (valid) return this.$store.dispatch('product/submit')
@@ -63,7 +66,11 @@ export default {
     update(field, value) {
       this.$store.commit('product/update', { field, value })
     },
-    handleImage(response, file, fileList) {
+    updatePrice(field, value) {
+      this.$store.commit('product/updatePrice', { field, value })
+    },
+    handleImage(file, fileList) {
+      this.fileList = [file]
       this.$store.commit('product/update', {
         field: 'images',
         value: [file.raw]

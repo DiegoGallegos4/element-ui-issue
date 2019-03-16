@@ -22,5 +22,6 @@ export default {
   required: 'Requerido',
   new: 'Nova',
   new_m: 'Novo',
-  submit: 'Enviar'
+  submit: 'Enviar',
+  city: 'Cidade'
 }

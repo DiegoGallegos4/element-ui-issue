@@ -88,6 +88,7 @@ module.exports = {
     components: [
       'Button',
       'MenuItem',
+      'MenuItemGroup',
       'Scrollbar',
       'Row',
       'Col',
@@ -113,7 +114,8 @@ module.exports = {
       'Menu',
       'Icon',
       'Notification',
-      'Loading'
+      'Loading',
+      'Submenu'
     ],
     locale: 'en'
   },

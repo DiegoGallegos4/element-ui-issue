@@ -17,6 +17,9 @@ export const mutations = {
   },
   updateCollection(state, collection) {
     state.collection = collection
+  },
+  reset(state) {
+    Object.assign(state, getDefaultState())
   }
 }
 
@@ -54,10 +57,13 @@ export const actions = {
     commit('loading', false)
 
     return Promise.resolve()
+  },
+  resetState({ commit }) {
+    commit('reset')
   }
 }
 
-export const state = () => ({
+const getDefaultState = () => ({
   collection: [],
   frm: {
     supermarket: '',
@@ -73,3 +79,5 @@ export const state = () => ({
   },
   loading: false
 })
+
+export const state = getDefaultState()

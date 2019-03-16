@@ -1,15 +1,13 @@
 <template>
   <div class="form-container">
     <form-breadcrumb current-page="branches" />
-    <h3 class="form-title">
-      {{ $t('new') }} {{ $t('branch') }}
-    </h3>
-    <branch-form 
+    <h3 class="form-title">{{ $t('new') }} {{ $t('branch') }}</h3>
+    <branch-form
       ref="branchForm"
       :frm="state.frm"
       :loading="state.loading"
-      :supermarkets="supermarkets"
       :handle-map-click="handleMapClick"
+      :supermarkets="supermarkets"
       :on-submit="onSubmit"
       :rules="rules"
       :update="update"
@@ -21,6 +19,7 @@
 import FormBreadcrumb from '@/components/Forms/breadcrumb'
 import BranchForm from '@/components/Forms/branch'
 import { mapState } from 'vuex'
+
 export default {
   components: {
     FormBreadcrumb,
@@ -34,26 +33,11 @@ export default {
     }
   },
   computed: {
-    ...mapState({ state: state => state.branch })
-  },
-  async asyncData({ store, params }) {
-    await store.dispatch('branch/fetchRecord', params.id)
-    await store.dispatch('supermarket/fetch')
-    return { supermarkets: store.state.supermarket.collection }
+    ...mapState({ state: state => state.branch }),
+    ...mapState({ supermarkets: state => state.supermarket.collection })
   },
   beforeDestroy() {
-    this.$store.commit('branch/setForm', {
-      supermarket: '',
-      address: null,
-      city: null,
-      location: {
-        type: 'Point',
-        coordinates: [15.520638660195933, -88.02657544612886]
-      },
-      phone_number: null,
-      opening: null,
-      closing: null
-    })
+    this.$store.dispatch('branch/resetState')
   },
   methods: {
     async handleMapClick(e) {

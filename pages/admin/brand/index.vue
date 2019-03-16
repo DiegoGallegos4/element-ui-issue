@@ -1,35 +1,22 @@
 <template>
-  <div class="form-container">
-    <form-breadcrumb current-page="brands" />
-    <h3 class="form-title">
-      {{ $t('new') }} {{ $t('brand') }}
-    </h3>
-    <brand-form 
-      ref="brandForm"
-      :frm="state.frm"
-      :loading="state.loading"
-      :rules="rules"
-      :handle-image="handleImage"
-      :on-submit="onSubmit"
-      :update="update"
-    />
-  </div>
+  <collection-table
+    name="brand"
+    link="/admin/brand"
+    :collection="state.collection"
+    :columns="columns"
+  />
 </template>
 
 <script>
-import FormBreadcrumb from '@/components/Forms/breadcrumb'
-import BrandForm from '@/components/Forms/brand'
+import CollectionTable from '@/components/Pages/collection_table'
 import { mapState } from 'vuex'
 export default {
   components: {
-    FormBreadcrumb,
-    BrandForm
+    CollectionTable
   },
   data() {
     return {
-      rules: {
-        name: { required: true, message: this.$t('required') }
-      }
+      columns: [{ label: 'brand', name: 'name' }]
     }
   },
   computed: {
@@ -37,22 +24,8 @@ export default {
       state: state => state.brand
     })
   },
-  methods: {
-    onSubmit() {
-      this.$refs.brandForm.validate(valid => {
-        if (valid) return this.$store.dispatch('brand/submit')
-        return false
-      })
-    },
-    update(field, value) {
-      this.$store.commit('brand/update', { field, value })
-    },
-    handleImage(response, file, fileList) {
-      this.$store.commit('brand/update', {
-        field: 'image',
-        value: file.raw
-      })
-    }
+  async fetch({ store }) {
+    await store.dispatch('brand/fetch')
   }
 }
 </script>

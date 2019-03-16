@@ -29,6 +29,9 @@ export const mutations = {
   },
   updateCollection(state, collection) {
     state.collection = collection
+  },
+  reset(state) {
+    Object.assign(state, getDefaultState())
   }
 }
 
@@ -69,7 +72,6 @@ export const actions = {
         form.append(key, state.frm[key])
       }
     })
-    console.log(form)
     commit('loading', true)
     try {
       if (state.frm.id) {
@@ -87,10 +89,13 @@ export const actions = {
   },
   addPrice({ commit }) {
     commit('addPrice')
+  },
+  resetState({ commit }) {
+    commit('reset')
   }
 }
 
-export const state = () => ({
+const getDefaultState = () => ({
   collection: [],
   frm: {
     name: null,
@@ -108,3 +113,5 @@ export const state = () => ({
   },
   loading: false
 })
+
+export const state = getDefaultState()

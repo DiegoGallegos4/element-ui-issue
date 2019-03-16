@@ -37,8 +37,8 @@ export default {
       state: state => state.unit
     })
   },
-  async fetch({ store, params }) {
-    await store.dispatch('unit/fetchRecord', params.id)
+  beforeDestroy() {
+    this.$store.dispatch('unit/resetState')
   },
   methods: {
     onSubmit() {

@@ -26,10 +26,7 @@
             <el-select
               filterable
               style="width:100%"
-              :value="
-                frm.unit &&
-                  collections.units.filter(s => s._id == frm.unit)[0].name
-              "
+              :value="currentUnit"
               prop="unit"
               @change="update('unit', $event)"
             >
@@ -46,11 +43,7 @@
             <el-select
               filterable
               style="width:100%"
-              :value="
-                frm.category &&
-                  collections.categories.filter(s => s._id == frm.category)[0]
-                    .name
-              "
+              :value="currentCategory"
               prop="category"
               @change="update('category', $event)"
             >
@@ -67,10 +60,7 @@
             <el-select
               filterable
               style="width:100%"
-              :value="
-                frm.brand &&
-                  collections.brands.filter(s => s._id == frm.brand)[0].name
-              "
+              :value="currentBrand"
               prop="brand"
               @change="update('brand', $event)"
             >
@@ -89,8 +79,11 @@
               accept="image/*"
               action="/"
               list-type="picture"
-              :on-success="handleImage"
-              :limit="1"
+              :on-change="handleImage"
+              :on-exceed="handleImage"
+              :multiple="false"
+              :file-list="fileList"
+              :auto-upload="false"
             >
               <el-button size="small" type="primary">
                 Upload Image
@@ -108,12 +101,7 @@
           <el-form-item prop="supermaket" label-width="0">
             <el-select
               filterable
-              :value="
-                frmPrice.supermarket &&
-                  collections.supermarkets.filter(
-                    s => s.id == frmPrice.supermarket
-                  )[0].name
-              "
+              :value="currentSupermarket"
               prop="supermarket"
               placeholder="Supermercado"
               style="display:block"
@@ -212,6 +200,10 @@ export default {
       type: Object,
       default: () => ({})
     },
+    fileList: {
+      type: Array,
+      default: () => []
+    },
     handleImage: {
       type: Function,
       default: () => false
@@ -244,6 +236,49 @@ export default {
           )[0].name
         }))
       }
+    },
+    currentSupermarket: {
+      get() {
+        if (this.collections.supermarkets.length && this.frmPrice.supermarket) {
+          return this.collections.supermarkets.filter(
+            s => s.id === this.frmPrice.supermarket
+          )[0].name
+        }
+        return this.frmPrice.supermarket
+      },
+      set() {}
+    },
+    currentUnit: {
+      get() {
+        console.log(this.collections.units, this.frm.unit)
+        if (this.collections.units.length && this.frm.unit) {
+          return this.collections.units.filter(s => s.id === this.frm.unit)[0]
+            .name
+        }
+        return this.frm.unit
+      },
+      set() {}
+    },
+    currentCategory: {
+      get() {
+        if (this.collections.categories.length && this.frm.category) {
+          return this.collections.categories.filter(
+            s => s.id === this.frm.category
+          )[0].name
+        }
+        return this.frm.category
+      },
+      set() {}
+    },
+    currentBrand: {
+      get() {
+        if (this.collections.brands.length && this.frm.brand) {
+          return this.collections.brands.filter(s => s.id === this.frm.brand)[0]
+            .name
+        }
+        return this.frm.brand
+      },
+      set() {}
     }
   },
   methods: {

@@ -4,12 +4,16 @@
       <el-form-item label="Supermercados" prop="supermaket">
         <el-select
           filterable
-          :value="frm.supermarket && supermarkets.filter(s => s.id == frm.supermarket)[0].name"
+          :value="currentSupermarket"
           prop="supermarket"
           style="display:block"
           @change="update('supermarket', $event)"
         >
-          <el-option v-for="supermarket in supermarkets" :key="supermarket.id" :value="supermarket.id">
+          <el-option
+            v-for="supermarket in supermarkets"
+            :key="supermarket.id"
+            :value="supermarket.id"
+          >
             {{ supermarket.name }}
           </el-option>
         </el-select>
@@ -37,7 +41,10 @@
         />
       </el-form-item>
       <el-form-item label="Numero de telefono" prop="phone_number">
-        <el-input :value="frm.phone_number" @input="update('phone_number', $event)" />
+        <el-input
+          :value="frm.phone_number"
+          @input="update('phone_number', $event)"
+        />
       </el-form-item>
       <el-form-item>
         <div style="height: 400px">
@@ -107,6 +114,16 @@ export default {
           lat: this.frm.location.coordinates[0],
           lng: this.frm.location.coordinates[1]
         }
+      },
+      set() {}
+    },
+    currentSupermarket: {
+      get() {
+        if (this.supermarkets.length && this.frm.supermarket) {
+          return this.supermarkets.filter(s => s.id === this.frm.supermarket)[0]
+            .name
+        }
+        return this.frm.supermarket
       },
       set() {}
     }

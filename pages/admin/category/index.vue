@@ -1,36 +1,22 @@
 <template>
-  <div class="form-container">
-    <form-breadcrumb current-page="categories" />
-    <h3 class="form-title">
-      {{ $t('new') }} {{ $t('category') }}
-    </h3>
-
-    <category-form 
-      ref="categoryForm"
-      :frm="state.frm"
-      :loading="state.loading"
-      :rules="rules"
-      :handle-image="handleImage"
-      :on-submit="onSubmit"
-      :update="update"
-    />
-  </div>
+  <collection-table
+    name="category"
+    link="/admin/category"
+    :collection="state.collection"
+    :columns="columns"
+  />
 </template>
 
 <script>
-import FormBreadcrumb from '@/components/Forms/breadcrumb'
-import CategoryForm from '@/components/Forms/category'
+import CollectionTable from '@/components/Pages/collection_table'
 import { mapState } from 'vuex'
 export default {
   components: {
-    FormBreadcrumb,
-    CategoryForm
+    CollectionTable
   },
   data() {
     return {
-      rules: {
-        name: { required: true, message: this.$t('required') }
-      }
+      columns: [{ label: 'category', name: 'name' }]
     }
   },
   computed: {
@@ -38,22 +24,8 @@ export default {
       state: state => state.category
     })
   },
-  methods: {
-    onSubmit() {
-      this.$refs.categoryForm.validate(valid => {
-        if (valid) return this.$store.dispatch('category/submit')
-        return false
-      })
-    },
-    update(field, value) {
-      this.$store.commit('category/update', { field, value })
-    },
-    handleImage(response, file, fileList) {
-      this.$store.commit('category/update', {
-        field: 'image',
-        value: file.raw
-      })
-    }
+  async fetch({ store }) {
+    await store.dispatch('category/fetch')
   }
 }
 </script>

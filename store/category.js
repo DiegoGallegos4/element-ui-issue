@@ -17,6 +17,9 @@ export const mutations = {
   },
   updateCollection(state, collection) {
     state.collection = collection
+  },
+  reset(state) {
+    Object.assign(state, getDefaultState())
   }
 }
 
@@ -58,10 +61,13 @@ export const actions = {
       Notification.error(errorResponse('Categories', err.response))
     }
     commit('loading', false)
+  },
+  resetState({ commit }) {
+    commit('reset')
   }
 }
 
-export const state = () => ({
+const getDefaultState = () => ({
   collection: [],
   frm: {
     name: null,
@@ -69,3 +75,5 @@ export const state = () => ({
   },
   loading: false
 })
+
+export const state = getDefaultState()

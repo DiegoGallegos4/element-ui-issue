@@ -9,6 +9,7 @@
       :frm="state.frm"
       :loading="state.loading"
       :rules="rules"
+      :file-list="fileList"
       :handle-image="handleImage"
       :on-submit="onSubmit"
       :update="update"
@@ -30,7 +31,8 @@ export default {
       rules: {
         name: { required: true, message: this.$t('required') },
         country: { required: true, message: this.$t('required') }
-      }
+      },
+      fileList: []
     }
   },
   computed: {
@@ -38,8 +40,8 @@ export default {
       state: state => state.supermarket
     })
   },
-  async fetch({ store, params }) {
-    await store.dispatch('supermarket/fetchRecord', params.id)
+  beforeDestroy() {
+    this.$store.dispatch('supermarket/resetState')
   },
   methods: {
     onSubmit() {
@@ -51,7 +53,8 @@ export default {
     update(field, value) {
       this.$store.commit('supermarket/update', { field, value })
     },
-    handleImage(response, file, fileList) {
+    handleImage(file, fileList) {
+      this.fileList = [file]
       this.$store.commit('supermarket/update', {
         field: 'logo',
         value: file.raw

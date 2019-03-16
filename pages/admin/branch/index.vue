@@ -1,77 +1,34 @@
 <template>
-  <div class="form-container">
-    <form-breadcrumb current-page="branches" />
-    <h3 class="form-title">
-      {{ $t('new') }} {{ $t('branch') }}
-    </h3>
-    <branch-form 
-      ref="branchForm"
-      :frm="state.frm"
-      :loading="state.loading"
-      :handle-map-click="handleMapClick"
-      :supermarkets="supermarkets"
-      :on-submit="onSubmit"
-      :rules="rules"
-      :update="update"
-    />
-  </div>
+  <collection-table
+    name="branch"
+    link="/admin/branch"
+    :collection="state.collection"
+    :columns="columns"
+  />
 </template>
 
 <script>
-import FormBreadcrumb from '@/components/Forms/breadcrumb'
-import BranchForm from '@/components/Forms/branch'
+import CollectionTable from '@/components/Pages/collection_table'
 import { mapState } from 'vuex'
 export default {
   components: {
-    FormBreadcrumb,
-    BranchForm
+    CollectionTable
   },
   data() {
     return {
-      rules: {
-        supermarket: { required: true, message: this.$t('required') }
-      }
+      columns: [
+        { label: 'supermarket', name: 'supermarket.name' },
+        { label: 'city', name: 'city' }
+      ]
     }
   },
   computed: {
-    ...mapState({ state: state => state.branch })
+    ...mapState({
+      state: state => state.branch
+    })
   },
-  async asyncData({ app, store }) {
-    await store.dispatch('supermarket/fetch')
-
-    return { supermarkets: store.state.supermarket.collection }
-  },
-  methods: {
-    async handleMapClick(e) {
-      const geocodingUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${
-        e.latlng.lat
-      }&lon=${e.latlng.lng}&zoom=18&addressdetails=1`
-      const { data } = await this.$axios.get(geocodingUrl)
-      this.$store.commit('branch/update', {
-        field: 'city',
-        value: data.address.city
-      })
-      this.$store.commit('branch/update', {
-        field: 'address',
-        value: data.display_name
-      })
-      this.$store.commit('branch/update', {
-        field: 'location',
-        value: {
-          type: 'Point',
-          coordinates: [e.latlng.lat, e.latlng.lng]
-        }
-      })
-    },
-    onSubmit() {
-      this.$refs.branchForm.validate(valid => {
-        if (valid) return this.$store.dispatch('branch/submit')
-        return false
-      })
-    },
-    update(field, value) {
-      this.$store.commit('branch/update', { field, value })
-    }
+  async fetch({ store }) {
+    await store.dispatch('branch/fetch')
   }
 }
 </script>

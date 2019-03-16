@@ -1,15 +1,17 @@
 <template>
   <div class="form-container">
-    <form-breadcrumb current-page="brands" />
+    <form-breadcrumb current-page="categories" />
     <h3 class="form-title">
-      {{ $t('new') }} {{ $t('brand') }}
+      {{ state.frm.id ? $t('edit') : $t('new') }} {{ $t('category') }}
     </h3>
-    <brand-form
-      ref="brandForm"
+
+    <category-form
+      ref="categoryForm"
       :frm="state.frm"
       :loading="state.loading"
       :rules="rules"
       :handle-image="handleImage"
+      :file-list="fileList"
       :on-submit="onSubmit"
       :update="update"
     />
@@ -18,40 +20,42 @@
 
 <script>
 import FormBreadcrumb from '@/components/Forms/breadcrumb'
-import BrandForm from '@/components/Forms/brand'
+import CategoryForm from '@/components/Forms/category'
 import { mapState } from 'vuex'
 export default {
   components: {
     FormBreadcrumb,
-    BrandForm
+    CategoryForm
   },
   data() {
     return {
       rules: {
         name: { required: true, message: this.$t('required') }
-      }
+      },
+      fileList: []
     }
   },
   computed: {
     ...mapState({
-      state: state => state.brand
+      state: state => state.category
     })
   },
-  async fetch({ store, params }) {
-    await store.dispatch('brand/fetchRecord', params.id)
+  beforeDestroy() {
+    this.$store.dispatch('category/resetState')
   },
   methods: {
     onSubmit() {
-      this.$refs.brandForm.validate(valid => {
-        if (valid) return this.$store.dispatch('brand/submit')
+      this.$refs.categoryForm.validate(valid => {
+        if (valid) return this.$store.dispatch('category/submit')
         return false
       })
     },
     update(field, value) {
-      this.$store.commit('brand/update', { field, value })
+      this.$store.commit('category/update', { field, value })
     },
-    handleImage(response, file, fileList) {
-      this.$store.commit('brand/update', {
+    handleImage(file, fileList) {
+      this.fileList = [file]
+      this.$store.commit('category/update', {
         field: 'image',
         value: file.raw
       })
